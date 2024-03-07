@@ -1,0 +1,7 @@
+{
+  "databaseURL": "https://Rishi-Raj-Jain-s-workspace-80514q.us-east-1.xata.sh/db/cache",
+  "codegen": {
+    "output": "xata.js",
+    "moduleType": "cjs"
+  }
+}

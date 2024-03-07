@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnktfqvb1forrfhq4lag",
+  "parentID": "mig_cnktfpnb1forrfhq4l9g",
+  "checksum": "1:1a4aa0178232c913c6ec23423252bb4a6c474b319852ff7584003f40c8985032",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "isChat",
+          "type": "bool"
+        },
+        "table": "responses"
+      }
+    }
+  ]
+}

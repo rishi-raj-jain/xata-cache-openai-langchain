@@ -1,0 +1,13 @@
+{
+  "id": "mig_cnktfpnb1forrfhq4l9g",
+  "parentID": "mig_cnktfonb1forrfhq4l8g",
+  "checksum": "1:a4f3c8d007a8b4642dab374bed8d7243ddff98208d3894f45216b7d66bc9cb8b",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "isChat",
+        "table": "responses"
+      }
+    }
+  ]
+}

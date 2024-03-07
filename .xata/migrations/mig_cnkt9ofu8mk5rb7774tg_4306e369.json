@@ -1,0 +1,61 @@
+{
+  "id": "mig_cnkt9ofu8mk5rb7774tg",
+  "parentID": "mig_cnkt9ofu8mk5rb7774sg",
+  "checksum": "1:4306e3693a7edc3ae298afeb42832b99dad89978b0b9fc7448cfce3395f46a05",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "sessionId",
+          "type": "string"
+        },
+        "table": "messages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "type",
+          "type": "string"
+        },
+        "table": "messages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "role",
+          "type": "string"
+        },
+        "table": "messages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "content",
+          "type": "text"
+        },
+        "table": "messages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string"
+        },
+        "table": "messages"
+      }
+    },
+    {
+      "addColumn": {
+        "column": {
+          "name": "additionalKwargs",
+          "type": "text"
+        },
+        "table": "messages"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnkv4d4drf6qkrro1sjg",
+  "parentID": "mig_cnkv4anb1forrfhq4ps0",
+  "checksum": "1:7bd39fb16197ff9e1b0b4a02e252b57f13ae3e2760bf3d4102f5e86f850f8262",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "key",
+          "type": "text"
+        },
+        "table": "invocations"
+      }
+    }
+  ]
+}
