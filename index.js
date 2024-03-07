@@ -1,15 +1,12 @@
 require("dotenv/config");
 
 const { getXataClient } = require("./xata");
+
 const { XataCache } = require("./langchain-xata-cache.js");
 
 const { ChatOpenAI } = require("@langchain/openai");
 
-// const { BufferMemory } = require("langchain/memory");
 const { ConversationChain } = require("langchain/chains");
-// const {
-//   XataChatMessageHistory,
-// } = require("@langchain/community/stores/message/xata");
 
 const express = require("express");
 const app = express();
@@ -18,41 +15,8 @@ app.use(express.json());
 
 const xata = getXataClient();
 
-// app.post("/", async (req, res) => {
-//   const { messages, chatID } = req.body;
-//   const loggedInUserEmail = "rishi18304@iiitd.ac.in";
-//   const memory = new BufferMemory({
-//     chatHistory: new XataChatMessageHistory({
-//       client: xata,
-//       table: "messages",
-//       createTable: true,
-//       apiKey: process.env.XATA_API_KEY,
-//       sessionId: loggedInUserEmail + "_" + chatID,
-//     }),
-//   });
-//   const model = new ChatOpenAI();
-//   const chain = new ConversationChain({ llm: model, memory });
-//   const userMessages = messages.filter((i) => i.role === "user");
-//   const { response: data } = await chain.call({
-//     input: userMessages[userMessages.length - 1].content,
-//   });
-//   res.write(data);
-//   res.end();
-// });
-
 app.post("/query-callback-method", async (req, res) => {
   const { input } = req.body;
-  // LookUp for response in Xata
-  const cachedResponse = await xata.db.responses
-    .filter({ input })
-    .select(["answer"])
-    .getFirst();
-  // If cached response found, return as is
-  if (cachedResponse) {
-    res.write("[HIT] " + cachedResponse.answer);
-    res.end();
-    return;
-  }
   // Set headers before piping the stream
   res.setHeader("Transfer-Encoding", "chunked");
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
@@ -62,6 +26,17 @@ app.post("/query-callback-method", async (req, res) => {
     callbacks: [
       {
         async handleLLMStart() {
+          // Look for response in Xata
+          const cachedResponse = await xata.db.responses
+            .filter({ input })
+            .select(["answer"])
+            .getFirst();
+          // If cached response found, return as is
+          if (cachedResponse) {
+            res.write("[HIT] " + cachedResponse.answer);
+            res.end();
+            return;
+          }
           res.write(encoder.encode("[MISS] "));
         },
         handleLLMNewToken(token) {
@@ -88,7 +63,9 @@ app.post("/query-cache-method", async (req, res) => {
   const model = new ChatOpenAI({
     cache: new XataCache({ client: xata }),
   });
+  console.time();
   const response = await model.invoke(input);
+  console.timeEnd();
   res.write(response.content);
   res.end();
 });
